@@ -1,0 +1,5 @@
+def mapline(lin):
+    nums = list(filter(str.isdigit, lin))
+    return int(''.join([nums[0],nums[-1]]))
+        
+print(sum([ mapline(lin) for lin in open('day1mat.txt', 'r') ]))
