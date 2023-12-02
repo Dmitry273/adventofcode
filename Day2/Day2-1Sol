@@ -1,2 +1,12 @@
-for line in open('Day1/day1mat.txt', 'r'):
-    print(line)
+RGB = [12, 13, 14]
+mydict = {'red': 0, 'green': 1, 'blue': 2}
+answ = 0
+for id, line in enumerate(open('Day2/day2mat.txt', 'r')):
+    start = line.find(':')
+    full = [a.split(', ') for a in line[start+2:].split('; ')]
+    if list(filter(lambda z: len(z)>0, [list(filter(lambda x: int(x.split()[0])>RGB[mydict.get(x.split()[1])], y)) for y in full])):
+        continue #I should be isolated from society for this
+    answ += id+1
+print(answ)
+
+    
