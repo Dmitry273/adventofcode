@@ -1,0 +1,15 @@
+RGB = [12, 13, 14]
+mydict = {'red': 0, 'green': 1, 'blue': 2}
+answ = 0
+for id, line in enumerate(open('Day2/day2mat.txt', 'r')):
+    start = line.find(':')
+    full = [a.split(', ') for a in line[start+2:].split('; ')]
+    local = [0, 0, 0]
+    for subs in full:
+        curr = [0, 0, 0]
+        for j in subs:
+            typ = mydict.get(j.split()[1])
+            curr[typ] = int(j.split()[0])
+        local = [max(local[i], curr[i]) for i in range(3)]
+    answ += local[0]*local[1]*local[2]
+print(answ)
