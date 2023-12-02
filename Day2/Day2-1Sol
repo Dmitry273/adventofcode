@@ -1,0 +1,2 @@
+for line in open('Day1/day1mat.txt', 'r'):
+    print(line)
