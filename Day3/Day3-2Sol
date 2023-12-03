@@ -1,0 +1,40 @@
+
+file = []
+nums = []
+for j, line in enumerate(open('Day3/day3mat.txt', 'r')):
+    file.append(line)
+    num = ''
+    newnum = True
+    for i, char in enumerate(line):
+        if char.isdigit():
+            if newnum:
+                starting_point = i
+                newnum = False
+            num += char
+        else:
+            if not newnum:
+                ending_point = i-1
+                nums.append([int(num), starting_point, ending_point, j, 0])
+                num = ''
+                newnum = True
+    if not newnum:
+        ending_point = len(line)-1
+        nums.append([int(num), starting_point, ending_point, j, 0])
+
+width = len(file[0])-1
+lenght = len(file)-1
+all_gears = []
+gears = []
+
+for num in nums:
+    for i in range(max(0, num[3]-1), min(lenght, num[3]+2)):
+        for j in range(max(0, num[1]-1), min(width, num[2]+2)):
+            if file[i][j] == '*':
+                if [i, j] in [x[1] for x in all_gears]:
+                    gears.append(all_gears[[x[1] for x in all_gears].index([i, j])][0]*num[0])
+                else: 
+                    all_gears.append([num[0], [i, j]])
+                break
+        if num[4]:
+            break
+print(sum(gears))
