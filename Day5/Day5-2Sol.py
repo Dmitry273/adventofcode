@@ -61,4 +61,4 @@ def SrcToDest(maps, sections):
     return sections
 
 locations = SrcToDest(humdtolctn, SrcToDest(temptohumd, SrcToDest(lghttotemp, SrcToDest(watrtolght, SrcToDest(ferttowatr, SrcToDest(soiltofert, SrcToDest(seedtosoil, seeds)))))))
-print(min([min(i[0], i[1]) for i in locations]))
+print(min([min(i) for i in locations]))
