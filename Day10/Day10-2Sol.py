@@ -38,4 +38,4 @@ while 1:
     r1.advance(r1n)
     if r1.coor == start: break
 
-print(abs(r1.S - i//2 + 1))
+print(abs(r1.S) - i//2 + 1)
