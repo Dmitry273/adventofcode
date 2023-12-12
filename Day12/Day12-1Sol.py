@@ -2,6 +2,7 @@ import itertools
 
 def valid(s, answ):
     s = str(s)
+    if sum([int(i) for i in s]) != sum(answ): return False
     local = []
     for key, group in itertools.groupby(s, key= lambda x: x=='1'):
         if key: local.append(len(list(group)))
@@ -13,6 +14,8 @@ for line in open('Day12/day12mat.txt'):
 
     s = line.split()[0]
     nums = list(map(int, line[:-1].split()[1].split(',')))
+    # s = '?'.join([line.split()[0]]*5)
+    # nums = list(map(int, line[:-1].split()[1].split(',')))*5
     branches = [0]
     for ch in s:
         newbranches = []
