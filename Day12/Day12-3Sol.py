@@ -7,7 +7,7 @@ def killer(s: str, nums: list) -> int:
     s = '.'.join(s.replace('.', ' ').split())
     s = s+'.'
     branches = [Branch(s)]
-    while nums:
+    while len(nums)>0:
         num = nums[0]
         nums.pop(0)
         chunk = '#'*num+'.'
@@ -29,24 +29,27 @@ def killer(s: str, nums: list) -> int:
         for un in set([i.text for i in newbranches]):
             candidates = list(filter(lambda x: x.text == un, newbranches))
             branches.append(Branch(un, sum(map(lambda y: y.dupl, candidates))))
-
+    # for branch in branches:
+    #     print(branch.text, branch.dupl)
+    # print(nums)
+    branches = list(filter(lambda x: x.text.count('#')==0, branches))
     return sum(i.dupl for i in branches)
 
-s = '????.?#?.##'
-nums = [1, 2]
-#got 10 instead of 1
+# s = '????.?#?.##'
+# nums = [1, 2]
+# #got 10 instead of 1
 
-print(killer(s, nums))
+# print(f'and the sum is {killer(s, nums)}')
 
-"""
-file = []
+
+# file = []
 answers = []
 for line in open('Day12/day12mat.txt', 'r'):
     s = '?'.join([line.split()[0]]*5)
     nums = list(map(int, line[:-1].split()[1].split(',')))*5
-    s = line.split()[0]
-    nums = list(map(int, line[:-1].split()[1].split(',')))
-    file.append([s, [i for i in nums]])
+    #s = line.split()[0]
+    #nums = list(map(int, line[:-1].split()[1].split(',')))
+    #file.append([s, [i for i in nums]])
     # print('.........................')
     # print(nums)
     answ = killer(s, nums)
@@ -57,7 +60,7 @@ for line in open('Day12/day12mat.txt', 'r'):
 
 print(len(answers))
 print(sum(answers))
-
+"""
 for i, line in enumerate(open('Day12/day12-1corransw.txt', 'r')):
     if int(line[:-1]) != answers[i]:
         print(file[i])
