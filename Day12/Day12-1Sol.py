@@ -28,5 +28,11 @@ for line in open('Day12/day12mat.txt'):
     for brach in branches:
         if valid(brach, nums): i += 1
     file.append(i)
+    f = open('Day12/day12-1corransw.txt', 'a')
+    f.write(f'{i}\n')
+    f.close()
     print(i)
+
+
+
 print(sum(file))
