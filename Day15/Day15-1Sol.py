@@ -1,7 +1,5 @@
 seq = list(open('Day15/day15mat.txt', 'r'))[0].split(',')
 
-boxes = [[] for i in range(256)]
-
 def HASH(s):
     answ = 0
     for ch in s:
@@ -16,6 +14,7 @@ for s in seq:
 print(f'answer to the first part is: {answ}')
 
 answ = 0
+boxes = [[] for i in range(256)]
 for s in seq:
     if '-' in s:
         box = boxes[HASH(s[:-1])]
