@@ -62,12 +62,8 @@ class Beam():
 def energy(start, direction):
     beams = [Beam(direction,[(start[0]-ver(direction),start[1]-hor(direction),direction)])]
     fullbeams = []
-    #c = 0
     collective = set()
     while beams:
-        # c += 1
-        # if c%10 == 0:
-        #     print(len(beams))
         newbeams = []
         for beam in beams:
             collective = collective | set(beam.history)
