@@ -1,6 +1,6 @@
 import copy
 instructions = []
-for line in open('Day19/day19mat-t.txt', 'r'):
+for line in open('Day19/day19mat.txt', 'r'):
     if line[:-1] == '': break
     instructions.append(line[:-1])
 
@@ -15,7 +15,7 @@ def mult(xmas):
 
 def finder(name):
     for func in instructions:
-        if func.startswith(name): return func[func.index('{')+1:-1]
+        if name == func[:func.find('{')]: return func[func.index('{')+1:-1]
 
 def splitter(xmas: dict, target: str, more: bool, num: int) -> tuple:
     passed = copy.deepcopy(xmas)
@@ -34,13 +34,13 @@ def compilator(instruction: str, xmas: dict) -> int:
     if xmas == {'x':[1,1], 'm':[1,1], 'a':[1,1], 's':[1,1]}: return 0
     if instruction == 'A': return mult(xmas)
     if instruction == 'R': return 0
-    if not instruction: return mult(xmas)
     if ':' not in instruction: return compilator(finder(instruction),xmas)
     next = instruction.split(',')[0]
+    last = ','.join(instruction.split(',')[1:])
     cond = next[:next.find(':')]
     result = next[next.find(':')+1:]
     target, more, num = (cond[0],cond[1] == '>',int(cond[2:]))
     passed, notpas = splitter(xmas, target, more, num)
-    return compilator(result, passed) + compilator(','.join(instruction.split(',')[1:]), notpas)
+    return compilator(result, passed) + compilator(last, notpas)
 
 print(compilator('in', xmas))
