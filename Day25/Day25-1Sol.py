@@ -18,7 +18,6 @@ for line in connections:
         nodes[head].add(other)
         nodes[other].add(head)
 mainnodes = copy.deepcopy(nodes)
-#print(nodes)
 
 def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, length = 100, fill = '█', printEnd = "\r"):
     """
@@ -42,7 +41,7 @@ def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, 
         print()
 
 def find_path(a, b):
-    kill = 30
+    kill = 30 #it's a dense graph, so we can kill search much earlier
     routes_from_a = [(a,)]
     routes_from_b = [(b,)]
     while routes_from_a != [] and routes_from_b != [] and kill > 0:
@@ -54,14 +53,11 @@ def find_path(a, b):
         for step in nodes[last_a]:
             if step in route_a: continue
             if any([step in i for i in routes_from_a]): continue
-            #if f'{last_a}/{step}' in pruned: continue
-            #if f'{step}/{last_a}' in pruned: continue
             if step == b:
                 return route_a+(step,)
             elif any([step in i for i in routes_from_b]):
                 for i in routes_from_b:
                     if step in i:
-                        #if f'{i[-1]}/{step}' not in pruned and f'{step}/{i[-1]}' not in pruned: 
                         return route_a+i[::-1]
             else:
                 routes_from_a.append(route_a+(step,))
@@ -69,14 +65,11 @@ def find_path(a, b):
         for step in nodes[last_b]:
             if step in route_b: continue
             if any([step in i for i in routes_from_b]): continue
-            #if f'{last_b}/{step}' in pruned: continue
-            #if f'{step}/{last_b}' in pruned: continue
             if step == a:
                 return (step,)+route_b[::-1]
             elif any([step in i for i in routes_from_a]):
                 for i in routes_from_a:
                     if step in i:
-                        #if f'{i[-1]}/{step}' not in pruned and f'{step}/{i[-1]}' not in pruned: 
                         return i+route_b[::-1]
             else:
                 routes_from_b.append(route_b+(step,))
@@ -92,7 +85,6 @@ def measure():
     print(f'{(l-answ)*answ} from {answ} and {(l-answ)}')
     pass
 
-#print(find_path('cmg','bvb', pruned =['hfx/pzl','bvb/cmg','nvd/jqt']))
 unique = list(unique)
 l = len(unique)
 freq = defaultdict(lambda: 0)
@@ -114,7 +106,7 @@ while N < M:
 print('start measuring')
 tops = [[a, b] for a, b in zip(freq, freq.values())]
 tops.sort(key= lambda x: -x[1])
-#print(tops)
+
 pruned = [i[0] for i in tops[0:3]]
 nodes = copy.deepcopy(mainnodes)
 for prun in pruned:
