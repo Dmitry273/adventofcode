@@ -177,4 +177,5 @@ for prun in pruned:
 pruned = []
 measure()
 
+# first ones more reliable
 # repeat until it's not 0
